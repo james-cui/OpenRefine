@@ -89,6 +89,7 @@ import com.google.refine.importing.UrlRewriter.Result;
 import com.google.refine.model.Project;
 import com.google.refine.util.JSONUtilities;
 import com.google.refine.util.ParsingUtilities;
+import java.util.stream.Collectors;
 
 public class ImportingUtilities {
     final static protected Logger logger = LoggerFactory.getLogger("importing-utilities");
@@ -499,6 +500,19 @@ public class ImportingUtilities {
             JSONUtilities.getString(fileRecord, "fileName", "unknown")
         );
     }
+
+    static public String getArchiveFileName(ObjectNode fileRecord) {
+        return JSONUtilities.getString(
+                fileRecord,
+                "archiveFileName",
+                null
+        );
+    }
+
+    static public boolean hasArchiveFileField(List<ObjectNode> fileRecords) {
+        List<ObjectNode> filterResults = fileRecords.stream().filter(fileRecord -> getArchiveFileName(fileRecord) != null).collect(Collectors.toList());
+        return filterResults.size() > 0;
+    }
     
     static private abstract class SavingUpdate {
         public long totalExpectedSize = 0;
@@ -571,7 +585,7 @@ public class ImportingUtilities {
         
         postProcessSingleRetrievedFile(file, fileRecord);
         JSONUtilities.append(fileRecords, fileRecord);
-        
+
         return false;
     }
     

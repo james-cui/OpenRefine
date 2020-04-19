@@ -168,7 +168,7 @@ public class DefaultImportingController implements ImportingController {
         String format = request.getParameter("format");
         ObjectNode optionObj = ParsingUtilities.evaluateJsonStringToObjectNode(
                 request.getParameter("options"));
-        
+
         List<Exception> exceptions = new LinkedList<Exception>();
         
         ImportingUtilities.previewParse(job, format, optionObj, exceptions);
@@ -218,7 +218,7 @@ public class DefaultImportingController implements ImportingController {
             ObjectNode result = ParsingUtilities.mapper.createObjectNode();
             JSONUtilities.safePut(result, "status", "ok");
             JSONUtilities.safePut(result, "options", options);
-            
+
             Command.respondJSON(response, result);
         } else {
             HttpUtilities.respond(response, "error", "Unrecognized format or format has no parser");

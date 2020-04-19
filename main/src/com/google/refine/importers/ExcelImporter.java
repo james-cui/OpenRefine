@@ -139,6 +139,7 @@ public class ExcelImporter extends TabularImportingParserBase {
         ProjectMetadata metadata,
         ImportingJob job,
         String fileSource,
+        String archiveFileName,
         InputStream inputStream,
         int limit,
         ObjectNode options,
@@ -232,14 +233,14 @@ public class ExcelImporter extends TabularImportingParserBase {
                 metadata,
                 job,
                 dataReader,
-                fileSource + "#" + sheet.getSheetName(),
+                fileSource + "#" + sheet.getSheetName(), archiveFileName,
                 limit,
                 options,
                 exceptions
             );
         }
 
-        super.parseOneFile(project, metadata, job, fileSource, inputStream, limit, options, exceptions);
+        super.parseOneFile(project, metadata, job, fileSource, archiveFileName, inputStream, limit, options, exceptions);
     }
     
     static protected Serializable extractCell(org.apache.poi.ss.usermodel.Cell cell) {

@@ -266,7 +266,7 @@ public class ListFacet implements Facet {
 
     @Override
     public RowFilter getRowFilter(Project project) {
-        return 
+        return
             _eval == null || 
             _errorMessage != null ||
             (_config.selection.size() == 0 && !_config.selectBlank && !_config.selectError) ? 
